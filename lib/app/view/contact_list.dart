@@ -1,24 +1,13 @@
-import 'package:agenda_crud/app/database/script.dart';
+import 'package:agenda_crud/app/database/sqlite/dao/contato_dao_impl.dart';
+import 'package:agenda_crud/app/domain/entities/contato.dart';
 import 'package:agenda_crud/app/my_app.dart';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
 class ContactList extends StatelessWidget {
-  //const ContactList({Key? key}) : super(key: key);
+  ContactList({Key? key}) : super(key: key);
 
-  Future<List<Map<String, dynamic>>> _buscar() async {
-    String path = join(await getDatabasesPath(), 'contatos.db3');
-
-    Database db = await openDatabase(path, version: 1, onCreate: (db, v) {
-      db.execute(createTable);
-      db.execute(insert1);
-      db.execute(insert2);
-      db.execute(insert3);
-      db.execute(insert4);
-    });
-
-    return db.query('contato');
+  Future<List<Contato>?> _buscar() async {
+    return ContatoDAOImpl().pesquisar();
   }
 
   @override
@@ -27,7 +16,7 @@ class ContactList extends StatelessWidget {
         future: _buscar(),
         builder: (context, futuro) {
           if (futuro.hasData) {
-            var lista = futuro.data as List;
+            List<Contato> lista = futuro.data as List<Contato>;
 
             return Scaffold(
               appBar: AppBar(
@@ -45,15 +34,14 @@ class ContactList extends StatelessWidget {
                 itemCount: lista.length,
                 itemBuilder: (context, i) {
                   var contato = lista[i];
-
                   var avatar = CircleAvatar(
                       backgroundImage:
-                          NetworkImage(contato['url_avatar'] ?? ''));
+                          AssetImage(contato.urlAvatar.toString()));
 
                   return ListTile(
                     leading: avatar,
-                    title: Text(contato['nome'] ?? ''),
-                    subtitle: Text(contato['telefone'] ?? ''),
+                    title: Text(contato.nome ?? ''),
+                    subtitle: Text(contato.telefone ?? ''),
                     trailing: Container(
                       width: 100,
                       child: Row(
