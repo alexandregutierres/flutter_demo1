@@ -1,4 +1,4 @@
-#Sun Jan 16 21:19:04 BRT 2022
-base.0=D\:\\GUTIERRES\\DESENVOLVIMENTO\\Curso_Flutter\\agenda_crud\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Sun Jan 16 21:55:49 BRT 2022
+base.0=D\:\\GUTIERRES\\DESENVOLVIMENTO\\AulasFlutter\\flutter_demo1\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
